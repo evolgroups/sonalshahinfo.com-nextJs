@@ -1,0 +1,26 @@
+{
+  "name": "Sonal Shah - Official Portfolio",
+  "short_name": "Sonal Shah",
+  "description": "Official portfolio of Sonal Shah, Founder & Director of Evol Group. Multinational business leader with 17+ years of experience.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0F2854",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["business", "professional", "portfolio"],
+  "dir": "ltr",
+  "lang": "en-US"
+}
