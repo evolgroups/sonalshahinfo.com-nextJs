@@ -91,10 +91,16 @@ async function sendEmail({ name, email, company, message }, apiKey, contactEmail
   return response.json();
 }
 
-export async function POST(request) {
+export async function POST(request, context) {
   try {
     const body = await request.json();
     const { name, email, company, message, turnstileToken } = body;
+
+    // Get environment variables from Cloudflare context
+    const env = context?.env || process.env;
+    const TURNSTILE_SECRET_KEY = env.TURNSTILE_SECRET_KEY;
+    const SENDINBLUE_API_KEY = env.SENDINBLUE_API_KEY;
+    const CONTACT_EMAIL = env.CONTACT_EMAIL;
 
     // Validate required fields
     if (!name || !email || !message) {
@@ -114,7 +120,7 @@ export async function POST(request) {
 
     const isValidToken = await verifyTurnstile(
       turnstileToken,
-      process.env.TURNSTILE_SECRET_KEY
+      TURNSTILE_SECRET_KEY
     );
 
     if (!isValidToken) {
@@ -127,8 +133,8 @@ export async function POST(request) {
     // Send email
     await sendEmail(
       { name, email, company, message },
-      process.env.SENDINBLUE_API_KEY,
-      process.env.CONTACT_EMAIL
+      SENDINBLUE_API_KEY,
+      CONTACT_EMAIL
     );
 
     return NextResponse.json(
