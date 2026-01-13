@@ -98,10 +98,34 @@ export async function POST(request) {
     const { name, email, company, message, turnstileToken } = body;
 
     // Get environment variables from Cloudflare context
-    const { env } = getRequestContext();
+    let env;
+    try {
+      const ctx = getRequestContext();
+      env = ctx.env;
+    } catch (e) {
+      // Fallback to process.env if getRequestContext fails
+      env = process.env;
+    }
+
     const TURNSTILE_SECRET_KEY = env.TURNSTILE_SECRET_KEY;
     const SENDINBLUE_API_KEY = env.SENDINBLUE_API_KEY;
     const CONTACT_EMAIL = env.CONTACT_EMAIL;
+
+    // Debug: Check which vars are missing
+    if (!TURNSTILE_SECRET_KEY || !SENDINBLUE_API_KEY || !CONTACT_EMAIL) {
+      return NextResponse.json(
+        { 
+          error: 'Server configuration error',
+          debug: 'Missing environment variables',
+          missing: {
+            TURNSTILE_SECRET_KEY: !TURNSTILE_SECRET_KEY,
+            SENDINBLUE_API_KEY: !SENDINBLUE_API_KEY,
+            CONTACT_EMAIL: !CONTACT_EMAIL
+          }
+        },
+        { status: 500 }
+      );
+    }
 
     // Validate required fields
     if (!name || !email || !message) {
