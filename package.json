@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "pages:build": "npx @cloudflare/next-on-pages",
+    "pages:dev": "npx @cloudflare/next-on-pages --watch",
     "start": "next start",
     "lint": "next lint"
   },
@@ -19,12 +21,14 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.0",
     "@types/node": "25.0.7",
     "@types/react": "19.2.8",
     "autoprefixer": "^10.4.0",
     "eslint": "^8.0.0",
     "eslint-config-next": "^14.2.0",
     "postcss": "^8.4.0",
-    "tailwindcss": "^3.4.0"
+    "tailwindcss": "^3.4.0",
+    "vercel": "^37.0.0"
   }
 }

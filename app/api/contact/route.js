@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 
+// Edge Runtime for Cloudflare Pages
+export const runtime = 'edge';
+
 async function verifyTurnstile(token, secretKey) {
   const response = await fetch(
     'https://challenges.cloudflare.com/turnstile/v0/siteverify',
