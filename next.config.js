@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Static export for Cloudflare Pages
+  output: 'export',
   // Enable static image optimization
   images: {
-    unoptimized: true,
+    unoptimized: true, // Required for static export
     remotePatterns: [
       {
         protocol: 'https',
