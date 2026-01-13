@@ -14,19 +14,19 @@ const socialStats = [
     name: 'Facebook',
     href: 'https://www.facebook.com/profile.php?id=100001417248153',
     icon: Facebook,
-    followers: '3k+',
+    followers: '7.1k',
   },
   {
     name: 'Twitter',
     href: 'https://twitter.com/Shonashah30',
     icon: Twitter,
-    followers: '3k+',
+    followers: '2.6k',
   },
   {
     name: 'Instagram',
     href: 'https://www.instagram.com/sonalshah57/',
     icon: Instagram,
-    followers: '1.3k+',
+    followers: '1.8k',
   },
   {
     name: 'LinkedIn',
@@ -90,7 +90,7 @@ function Particle({ delay, index }) {
 
   return (
     <motion.div
-      className="absolute w-1 h-1 bg-primary-500/50 rounded-full"
+      className="absolute w-1 h-1 bg-[#BDE8F5]/60 rounded-full"
       initial={{
         x: randomX,
         y: dimensions.height + 10,
@@ -114,6 +114,11 @@ export default function Hero() {
   const [showSecondLine, setShowSecondLine] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef(null);
+
+  // Calculate years of experience dynamically (starting from 2007)
+  const startYear = 2007;
+  const currentYear = new Date().getFullYear();
+  const yearsOfExperience = currentYear - startYear;
 
   useEffect(() => {
     // Start second line after first line finishes
@@ -139,10 +144,10 @@ export default function Hero() {
     <section 
       ref={heroRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-br from-white via-[#BDE8F5]/30 to-[#1E93AB]/20"
+      className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-[#08132a]"
     >
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-[#1E93AB]/10 to-[#BDE8F5]/20 animate-gradient-shift" />
+      {/* Animated gradient background - subtle overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#08132a] via-[#0F2854]/70 to-[#08132a] animate-gradient-shift" />
       
       {/* Mouse-following spotlight */}
       <div 
@@ -153,7 +158,7 @@ export default function Hero() {
           width: '600px',
           height: '600px',
           transform: 'translate(-50%, -50%)',
-          background: 'radial-gradient(circle, rgba(30,147,171,0.2) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(76,136,196,0.25) 0%, transparent 70%)',
         }}
       />
       
@@ -169,7 +174,7 @@ export default function Hero() {
         <div 
           className="absolute -left-[30%] top-0 w-[70%] h-full"
           style={{
-            background: 'radial-gradient(ellipse 100% 100% at 30% 50%, rgba(30,147,171,0.25) 0%, rgba(189,232,245,0.15) 40%, transparent 70%)',
+            background: 'radial-gradient(ellipse 100% 100% at 30% 50%, rgba(76,136,196,0.15) 0%, rgba(189,232,245,0.08) 40%, transparent 70%)',
           }}
         />
       </div>
@@ -184,7 +189,7 @@ export default function Hero() {
             className="order-2 lg:order-1"
           >
             {/* Main heading with typing animation */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-900 mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
               <TypeWriter text="Hi there," speed={80} delay={300} />
               <span className="block mt-2">
                 {showSecondLine && (
@@ -198,10 +203,27 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 3 }}
-              className="text-xl md:text-2xl text-primary-800 mb-10"
+              className="text-xl md:text-2xl text-white/90 mb-6"
             >
               Founder & Director Of Multiple Companies
             </motion.p>
+
+            {/* Description */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 3.4 }}
+              className="text-base md:text-lg text-white/80 mb-8 max-w-2xl space-y-3"
+            >
+              <p>
+                Visionary entrepreneur with <span className="text-[#BDE8F5] font-semibold">{yearsOfExperience}+ years of experience</span> leading 
+                multinational businesses across Australia and India.
+              </p>
+              <p>
+                Specializing in immigration services, IT solutions, CRM technology, and business development, 
+                I&apos;ve built a diverse portfolio of successful ventures under the <span className="text-[#BDE8F5] font-semibold">Evol Group</span> umbrella.
+              </p>
+            </motion.div>
 
             {/* Social Stats */}
             <motion.div
@@ -221,10 +243,10 @@ export default function Hero() {
                   transition={{ duration: 0.3, delay: 3.3 + index * 0.1 }}
                   className="group flex flex-col items-center"
                 >
-                  <div className="w-12 h-12 bg-primary-800 rounded-full flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-primary-500 transition-all duration-300">
+                  <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-[#BDE8F5] group-hover:text-[#0F2854] transition-all duration-300">
                     <social.icon className="w-5 h-5" />
                   </div>
-                  <span className="mt-2 text-sm font-medium text-primary-800">
+                  <span className="mt-2 text-sm font-medium text-white/80">
                     {social.followers}
                   </span>
                 </motion.a>
