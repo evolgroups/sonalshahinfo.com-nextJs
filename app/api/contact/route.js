@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { getRequestContext } from '@cloudflare/next-on-pages';
 
 // Edge Runtime for Cloudflare Pages
 export const runtime = 'edge';
@@ -91,13 +92,13 @@ async function sendEmail({ name, email, company, message }, apiKey, contactEmail
   return response.json();
 }
 
-export async function POST(request, context) {
+export async function POST(request) {
   try {
     const body = await request.json();
     const { name, email, company, message, turnstileToken } = body;
 
     // Get environment variables from Cloudflare context
-    const env = context?.env || process.env;
+    const { env } = getRequestContext();
     const TURNSTILE_SECRET_KEY = env.TURNSTILE_SECRET_KEY;
     const SENDINBLUE_API_KEY = env.SENDINBLUE_API_KEY;
     const CONTACT_EMAIL = env.CONTACT_EMAIL;
