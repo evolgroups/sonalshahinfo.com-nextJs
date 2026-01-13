@@ -93,19 +93,16 @@ async function sendEmail({ name, email, company, message }, apiKey, contactEmail
 
 export async function POST(request) {
   try {
+    // Get env vars from request.env (Cloudflare Workers way)
+    const env = request.env || {};
+    
     const body = await request.json();
     const { name, email, company, message, turnstileToken } = body;
 
-    // Access env vars - try both methods for Cloudflare compatibility
-    const TURNSTILE_SECRET_KEY = typeof process !== 'undefined' && process.env 
-      ? process.env.TURNSTILE_SECRET_KEY 
-      : globalThis.TURNSTILE_SECRET_KEY;
-    const SENDINBLUE_API_KEY = typeof process !== 'undefined' && process.env 
-      ? process.env.SENDINBLUE_API_KEY 
-      : globalThis.SENDINBLUE_API_KEY;
-    const CONTACT_EMAIL = typeof process !== 'undefined' && process.env 
-      ? process.env.CONTACT_EMAIL 
-      : globalThis.CONTACT_EMAIL;
+    // Get environment variables from Cloudflare env object
+    const TURNSTILE_SECRET_KEY = env.TURNSTILE_SECRET_KEY;
+    const SENDINBLUE_API_KEY = env.SENDINBLUE_API_KEY;
+    const CONTACT_EMAIL = env.CONTACT_EMAIL;
 
     // Debug: Check which vars are missing
     if (!TURNSTILE_SECRET_KEY || !SENDINBLUE_API_KEY || !CONTACT_EMAIL) {
@@ -118,8 +115,8 @@ export async function POST(request) {
             SENDINBLUE_API_KEY: !SENDINBLUE_API_KEY,
             CONTACT_EMAIL: !CONTACT_EMAIL
           },
-          typeof_process: typeof process,
-          has_globalThis: typeof globalThis !== 'undefined'
+          env_keys: Object.keys(env),
+          has_request_env: !!request.env
         },
         { status: 500 }
       );

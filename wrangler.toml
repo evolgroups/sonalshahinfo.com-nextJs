@@ -1,0 +1,7 @@
+name = "sonalshahinfo-com-nextjs"
+compatibility_date = "2024-01-13"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# These will be replaced by Cloudflare Pages environment variables
+# The actual values come from Pages Settings -> Environment variables
