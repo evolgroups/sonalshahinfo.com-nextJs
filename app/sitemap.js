@@ -3,6 +3,9 @@
  * Automatically generates XML sitemap for search engines
  */
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export default function sitemap() {
   const baseUrl = 'https://sonalshahinfo.com';
   const currentDate = new Date().toISOString();
